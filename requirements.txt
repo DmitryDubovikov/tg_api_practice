@@ -1,2 +1,3 @@
 python-dotenv==1.0.0
 tg-api==1.1.1
+aiofiles==23.2.1

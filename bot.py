@@ -1,13 +1,8 @@
 import os
 
 from dotenv import load_dotenv
-from tg_api import (
-    SyncTgClient,
-    SendMessageRequest,
-    SendBytesPhotoRequest,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-)
+from tg_api import (InlineKeyboardButton, InlineKeyboardMarkup,
+                    SendBytesPhotoRequest, SendMessageRequest, SyncTgClient)
 
 
 def send_message(token, tg_chat_id):
