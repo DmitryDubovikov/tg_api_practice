@@ -2,6 +2,7 @@ import asyncio
 import os
 
 import aiofiles
+import httpx
 from dotenv import load_dotenv
 from tg_api import (
     AsyncTgClient,
@@ -52,16 +53,27 @@ async def asend_photo(token, tg_chat_id, photo_filename):
         await tg_request.asend()
 
 
+async def asend_message_with_httpx(token, tg_chat_id):
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            url, params={"chat_id": tg_chat_id, "text": "hello from httpx"}
+        )
+        return response
+
+
 async def main():
     load_dotenv()
     token = os.environ["TG_BOT_TOKEN"]
     tg_chat_id = os.environ["TG_CHAT_ID"]
 
-    await asend_message(token, tg_chat_id)
+    # await asend_message(token, tg_chat_id)
+    #
+    # await asend_message_with_keyboard(token, tg_chat_id)
+    #
+    # await asend_photo(token, tg_chat_id, "image.jpeg")
 
-    await asend_message_with_keyboard(token, tg_chat_id)
-
-    await asend_photo(token, tg_chat_id, "image.jpeg")
+    await asend_message_with_httpx(token, tg_chat_id)
 
 
 if __name__ == "__main__":
